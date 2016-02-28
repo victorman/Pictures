@@ -29,16 +29,9 @@ public class DisplayImageTester {
 		frame.setSize(1000, 600);
 		frame.setVisible(true);
 		
-		try {
-			imgComponent1.setImage(ImageLoader.loadImage(new URL(TEST_IMAGE1)));
-			imgComponent2.setImage(ImageLoader.loadImage(new URL(TEST_IMAGE2)));
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+		ImageDownloadManager mgr = new ImageDownloadManager();
+		mgr.downloadImage(TEST_IMAGE1, imgComponent1);
+		mgr.downloadImage(TEST_IMAGE2, imgComponent2); 
 	}
 	
 }

@@ -3,12 +3,21 @@ package se.frand.pictures;
 import java.awt.*;
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.*;
+
 import javax.imageio.*;
 import javax.imageio.stream.*;
 
-public class ImageLoader {
+public class ImageLoader implements Callable {
+	
+	private URL imageURL;
+	private ImageDownloadManagerCallback downloadManager;
+	
+	public ImageLoader(URL imageURL) {
+		this.imageURL = imageURL;
+	}
 
-	public static Image loadImage(URL imageURL)
+	private Image loadImage()
 		throws IOException {
 		// IOException means what exactly? No image at url? data stream isn't an image?
 		// should i return null or throw the exception? We should probably just throw
@@ -46,5 +55,26 @@ public class ImageLoader {
 		stream.close();
 		
 		return img;
+	}
+
+	@Override
+	public Object call() {
+		try {
+			Image img = loadImage();
+			downloadManager.downloadComplete(img, imageURL);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+	
+	public ImageDownloadManagerCallback getDownloadManager() {
+		return downloadManager;
+	}
+	
+	public void setDownloadManager(ImageDownloadManagerCallback mgr) {
+		downloadManager = mgr;
 	}
 }
