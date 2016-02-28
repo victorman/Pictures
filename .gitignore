@@ -1,0 +1,5 @@
+# just need to be careful which java files I put out as mine
+*.java
+bin/
+
+!src/se/frand/pictures/*.java
