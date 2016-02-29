@@ -3,3 +3,5 @@
 bin/
 
 !src/se/frand/pictures/*.java
+!src/se/frand/pictures/views/*.java
+!src/se/frand/pictures/image/*.java
